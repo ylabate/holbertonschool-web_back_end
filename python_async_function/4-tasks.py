@@ -6,10 +6,12 @@ tasks that wait for random delays, allowing them to execute concurrently
 and return their results in completion order.
 """
 import asyncio
+from typing import List
+
 task_wait_random = __import__('3-tasks').task_wait_random
 
 
-async def task_wait_n(n: int, max_delay: int) -> list:
+async def task_wait_n(n: int, max_delay: int) -> List[float]:
     """Execute n concurrent tasks, each waiting for a random delay.
 
     This coroutine creates n asyncio Task objects that each wait for a
@@ -25,10 +27,5 @@ async def task_wait_n(n: int, max_delay: int) -> list:
         A list of delays (floats) from each completed task, ordered by
         completion time.
     """
-    return [
-        await result
-        for result in asyncio.as_completed(
-            task_wait_random(max_delay)
-            for _ in range(n)
-        )
-    ]
+    tasks = [task_wait_random(max_delay) for _ in range(n)]
+    return [await result for result in asyncio.as_completed(tasks)]
