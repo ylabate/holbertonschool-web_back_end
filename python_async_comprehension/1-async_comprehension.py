@@ -18,7 +18,4 @@ async def async_comprehension() -> typing.List[float]:
         List[float]: A list containing all random numbers generated
             by the async_generator function.
     """
-    return [
-        i
-        async for i in async_generator()
-    ]
+    return [i async for i in async_generator()]
