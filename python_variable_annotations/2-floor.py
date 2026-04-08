@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import math
 """Module that provides a function to convert a float to its rounded
 integer value with type annotations.
 """
@@ -13,4 +14,4 @@ def floor(n: float) -> int:
     Returns:
         The rounded integer value of the input float.
     """
-    return round(n)
+    return math.floor(n)
