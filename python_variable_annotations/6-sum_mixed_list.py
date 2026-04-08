@@ -8,7 +8,7 @@ that may contain both integer and floating-point numeric values.
 import typing
 
 
-def sum_mixed_list(mxd_lst: typing.List[int | float]) -> float:
+def sum_mixed_list(mxd_lst: typing.List[typing.Union[int, float]]) -> float:
     """
     Calculate the sum of a list containing mixed integer and float values.
 
