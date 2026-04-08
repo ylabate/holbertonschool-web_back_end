@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
-"""Module for converting key-value pairs to tuples with squared values.
+"""Module for converting key-value pairs into tuples with squared values.
 
-This module provides a function that takes a string key and a numeric value,
-returning a tuple containing the key and the squared value as a float.
+This module provides a function that demonstrates type annotations for
+function parameters and return types when working with unions of numeric
+types and tuples. The function takes a string key and a numeric value,
+then returns a tuple containing the original key and the squared value
+converted to a float type. This showcases how to use Union types and
+Tuple types in Python type annotations.
 """
 import typing
 
@@ -21,6 +25,7 @@ def to_kv(
         v: A numeric value (int or float) whose square will be calculated.
 
     Returns:
-        A tuple containing the key and its squared value as a float.
+        A tuple containing the string key and the squared numeric value
+        as float.
     """
     return (k, float(v**2))
