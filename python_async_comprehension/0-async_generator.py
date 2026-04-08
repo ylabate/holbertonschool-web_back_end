@@ -10,7 +10,7 @@ import random
 import typing
 
 
-async def async_generator() -> typing.AsyncGenerator[float, None]:
+async def async_generator() -> typing.Generator[float, None, None]:
     """Asynchronously generate random numbers with delays between yields.
 
     This async generator coroutine yields ten random floating-point numbers
