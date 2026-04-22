@@ -63,6 +63,8 @@ class Server:
         Returns:
             dict: Dictionary with page_size, page, data, next_page, prev_page, total_pages.
         """
+        assert isinstance(page, int) and isinstance(page_size, int)
+        assert page > 0 and page_size > 0
         dataset = self.dataset()
         total_pages = math.ceil(len(dataset) / page_size)
         data = dataset[slice(*self.index_range(page, page_size))] if (
