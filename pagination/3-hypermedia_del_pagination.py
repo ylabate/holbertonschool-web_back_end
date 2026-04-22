@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """
-Deletion-resilient hypermedia pagination
+Deletion-resilient hypermedia pagination module.
+This module provides a Server class to paginate a database of baby names
+even when rows are deleted between requests.
 """
 
 import csv
-from typing import List
+from typing import List, Dict
 
 
 class Server:
@@ -17,7 +19,9 @@ class Server:
         self.__indexed_dataset = None
 
     def dataset(self) -> List[List]:
-        """Cached dataset
+        """Cached dataset retrieval.
+        Returns the dataset cached in the __dataset attribute,
+        excluding the header row.
         """
         if self.__dataset is None:
             with open(self.DATA_FILE) as f:
@@ -27,8 +31,10 @@ class Server:
 
         return self.__dataset
 
-    def indexed_dataset(self) -> dict[int, List]:
-        """Dataset indexed by sorting position, starting at 0
+    def indexed_dataset(self) -> Dict[int, List]:
+        """Dataset indexed by sorting position, starting at 0.
+        Returns a dictionary where keys are original indexes and
+        values are the data rows.
         """
         if self.__indexed_dataset is None:
             dataset = self.dataset()
@@ -37,21 +43,25 @@ class Server:
             }
         return self.__indexed_dataset
 
-    def get_hyper_index(self, index: int = None, page_size: int = 10) -> dict:
-        indexed_dataset = self.indexed_dataset()
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
+        """
+        Retrieves a page of data starting from a specific index,
+        handling cases where items might have been deleted.
+        """
+        dataset = self.indexed_dataset()
+        assert index is not None and 0 <= index < len(self.dataset())
 
-        assert isinstance(index, int) and isinstance(page_size, int)
-        assert 0 <= index < len(self.dataset())
-
-        page = []
+        data = []
         current_index = index
-        while len(page) < page_size:
-            if indexed_dataset.get(current_index):
-                page.append(indexed_dataset[current_index])
+        while len(data) < page_size and current_index < len(self.dataset()):
+            item = dataset.get(current_index)
+            if item:
+                data.append(item)
             current_index += 1
+
         return {
-            "index": index,
-            "data": page,
-            "page_size": len(page),
-            "next_index": current_index
+            'index': index,
+            'data': data,
+            'page_size': len(data),
+            'next_index': current_index
         }
