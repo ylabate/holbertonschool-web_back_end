@@ -61,11 +61,13 @@ class Server:
             page_size: The number of items per page (default 10).
 
         Returns:
-            dict: Dictionary with page_size, page, data, next_page, prev_page, total_pages.
+            dict: Dictionary with page_size, page, data,
+            next_page, prev_page, total_pages.
         """
         data = self.get_page(page, page_size)
         total_dataset = len(self.dataset())
-        total_pages = math.ceil(total_dataset / page_size) if page_size > 0 else 0
+        total_pages = math.ceil(
+            total_dataset / page_size) if page_size > 0 else 0
         return {
             "page_size": len(data),
             "page": page,
