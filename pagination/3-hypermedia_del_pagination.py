@@ -41,7 +41,7 @@ class Server:
         indexed_dataset = self.indexed_dataset()
 
         assert isinstance(index, int) and isinstance(page_size, int)
-        assert 0 <= index < len(indexed_dataset)
+        assert 0 <= index < len(self.dataset())
 
         page = []
         current_index = index
