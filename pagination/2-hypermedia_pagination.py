@@ -63,17 +63,14 @@ class Server:
         Returns:
             dict: Dictionary with page_size, page, data, next_page, prev_page, total_pages.
         """
-        assert isinstance(page, int) and isinstance(page_size, int)
-        assert page > 0 and page_size > 0
-        dataset = self.dataset()
-        total_pages = math.ceil(len(dataset) / page_size)
-        data = dataset[slice(*self.index_range(page, page_size))] if (
-            page < total_pages) else []
+        data = self.get_page(page, page_size)
+        total_dataset = len(self.dataset())
+        total_pages = math.ceil(total_dataset / page_size) if page_size > 0 else 0
         return {
             "page_size": len(data),
             "page": page,
             "data": data,
-            "next_page": page + 1 if page < total_pages else None,
-            "prev_page": page - 1 if page - 1 > 0 else None,
+            "next_page": page + 1 if len(data) == page_size else None,
+            "prev_page": page - 1 if page > 1 else None,
             "total_pages": total_pages
         }
