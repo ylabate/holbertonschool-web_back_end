@@ -32,6 +32,7 @@ class Server:
         Returns:
             List[List]: Rows for the requested page.
         """
+        assert isinstance(page, int) and isinstance(page_size, int)
         assert page > 0 and page_size > 0
         try:
             return self.dataset()[slice(*self.index_range(page, page_size))]
