@@ -1,2 +1,2 @@
 // update all entry with the name Holberton school with adding adress value
-db.school.updateMany({"name": "Holberton school"}, {$set: {"adress": "972 Mission street"}})
+db.school.updateMany({ "name": "Holberton school" }, { $set: { "address": "972 Mission street" } })
