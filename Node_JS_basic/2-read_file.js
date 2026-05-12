@@ -1,10 +1,9 @@
-const { error } = require('console');
 const fs = require('fs');
 
 function countStudents(path) {
   try {
     const data = fs.readFileSync(path, 'utf-8');
-    const lines = data.trim().split(/\n/);
+    const lines = data.trim().split('\n').filter((line) => line.length > 0);
     const csv = lines.map((line) => line.split(',')).slice(1);
 
     console.log(`Number of students: ${csv.length}`);
