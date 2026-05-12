@@ -1,19 +1,17 @@
-import readline from 'readline/promises';
+const readline = require('readline');
 
-async function main() {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
-  const reponse = await rl.question('Welcome to Holberton School, what is your name?\n');
+console.log('Welcome to Holberton School, what is your name?');
 
+const reponse = await rl.question();
+
+rl.question('', (answer) => {
+  console.log(`Your name is: ${answer}`);
   rl.close();
+});
 
-  console.log(`Your name is: ${reponse}`);
-
-
-  console.log('This important software is now closing');
-}
-
-main();
+console.log('This important software is now closing');
