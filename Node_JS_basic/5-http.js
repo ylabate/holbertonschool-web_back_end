@@ -22,7 +22,7 @@ function countStudents(path) {
       }
       return res;
     })
-    .catch((err) => {
+    .catch(() => {
       throw Error('Cannot load the database');
     });
 }
@@ -31,6 +31,7 @@ const app = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
   if (req.url === '/') {
     res.write('Hello Holberton School!');
+    res.end();
   } else if (req.url === '/students') {
     res.write('This is the list of our students\n');
     countStudents(process.argv[2])
@@ -41,8 +42,8 @@ const app = http.createServer((req, res) => {
       .catch((err) => {
         res.write(err.message);
         res.end();
-      })
-  }
+      });
+  } else { res.end(); }
 });
 
 app.listen(1245);
