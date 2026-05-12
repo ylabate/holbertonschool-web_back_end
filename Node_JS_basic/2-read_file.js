@@ -1,3 +1,4 @@
+const { error } = require('console');
 const fs = require('fs');
 
 function countStudents(path) {
@@ -21,8 +22,8 @@ function countStudents(path) {
     for (const [field, value] of Object.entries(fields)) {
       console.log(`Number of students in ${field}: ${value.number}. List: ${value.students.join(', ')}`);
     }
-  } catch (err) {
-    console.error('Cannot load the database');
+  } catch (_) {
+    throw Error('Cannot load the database');
   }
 }
 
