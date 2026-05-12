@@ -12,5 +12,8 @@ rl.question('', (answer) => {
   rl.close();
 });
 
+rl.on('close', () => {
+  console.log('This important software is now closing');
+  process.exit(0);
+});
 
-console.log('This important software is now closing');
