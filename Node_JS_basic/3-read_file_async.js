@@ -22,7 +22,7 @@ function countStudents(path) {
     })
     .catch(() => {
       throw Error('Cannot load the database');
-    })
+    });
 }
 
 module.exports = countStudents;
