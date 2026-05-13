@@ -41,7 +41,7 @@ app.get('/students', (req, res) => {
       res.send(header + studentList);
     })
     .catch((err) => {
-      res.send(err.message);
+      res.send(header + err.message);
     });
 });
 
